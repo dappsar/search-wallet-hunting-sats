@@ -82,7 +82,7 @@ def process():
   maxRecords = 100000
 
   seeds = [
-    'blast','hollow','*','*','*','*',
+    'blast','hollow','state','*','*','*',
     '*','*','*','*','*','*','*']
 
   for i in range(13):
