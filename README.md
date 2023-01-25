@@ -1,3 +1,7 @@
+![python](https://img.shields.io/badge/python-informational?style=flat&logo=python&logoColor=white&color=6aa6f8)
+![bitcoin](https://img.shields.io/badge/bitcoin-informational?style=flat&logo=bitcoin&logoColor=white&color=6aa6f8)
+
+
 # search-wallet-hunting-sats
 
 ## Introduction
