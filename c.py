@@ -1,3 +1,9 @@
+# requirements: python, pip, pip install bip32utils mnemonic
+# to run: python3 c.py
+#
+# Posibilities: 2**32 = 4.294.967.296 (4K29 Millon keys), (128 bits - (8*12) bits = 32 bits)
+# El script arroja: 3043 keys en 60" / el total se calcularía en 876 días.
+
 import os
 import sys
 import random
@@ -6,9 +12,9 @@ import mnemonic.mnemonic as mnemonic
 import bip32utils
 import itertools
 import getopt
+from datetime import datetime, timedelta
+from pytz import timezone
 
-# requirements: python, pip, pip install bip32utils mnemonic
-# to run: python3 c.py
 def getUniqueWord(dic, currentWords):
   while True:
     word = random.choice(dic)
@@ -83,10 +89,11 @@ def searchWallet(words, pswd):
 def process(dicNbr):
   flush = 0
   total = 0
-  maxRecords = 100000
+  maxRecords = 1000000
+  date1 = datetime.now()
 
   seeds = [
-    'blast','hollow','state','monkey','elder','*',
+    'blast','hollow','state','monkey','elder','argue',
     '*','*','*','*','*','*','*']
 
   for i in range(13):
@@ -103,7 +110,8 @@ def process(dicNbr):
       if (match):
         out(pk, sk, words, pswd)
       else:
-        print(total+1, flush+1, words, pswd, pk, sk)
+        now = (datetime.now() - date1)
+        print(now, total+1, flush+1, words, pswd, pk, sk)
         flush += 1
         if (flush > maxRecords):
           flush = 0

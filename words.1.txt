@@ -1,3 +1,5 @@
+blast
+hollow
 abandon
 ability
 able
