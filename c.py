@@ -13,7 +13,6 @@ import bip32utils
 import itertools
 import getopt
 from datetime import datetime, timedelta
-from pytz import timezone
 
 def getUniqueWord(dic, currentWords):
   while True:
