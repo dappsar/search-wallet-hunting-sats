@@ -1,9 +1,11 @@
 import os
+import sys
 import random
 import binascii
 import mnemonic.mnemonic as mnemonic
 import bip32utils
 import itertools
+import getopt
 
 # requirements: python, pip, pip install bip32utils mnemonic
 # to run: python3 c.py
@@ -14,9 +16,11 @@ def getUniqueWord(dic, currentWords):
       return word
 
 
-def getDict():
+def getDict(dicNbr):
   dic = []
-  with open('./words.txt', 'r') as fwords:
+  dicName = './words.'+str(dicNbr)+'.txt'
+
+  with open(dicName, 'r') as fwords:
     dic = fwords.read().split('\n')
     random.shuffle(dic)
   return dic
@@ -76,7 +80,7 @@ def searchWallet(words, pswd):
   return match, pk, sk
 
 
-def process():
+def process(dicNbr):
   flush = 0
   total = 0
   maxRecords = 100000
@@ -87,7 +91,7 @@ def process():
 
   for i in range(13):
     if (seeds[i] == '*'):
-      missingSeed = getUniqueWord(getDict(), seeds)
+      missingSeed = getUniqueWord(getDict(dicNbr), seeds)
       seeds[i] = missingSeed
 
   for c in itertools.permutations(seeds, r=len(seeds)):
@@ -106,4 +110,44 @@ def process():
           total += 1
 
 
-process()
+def getInputParams(argv):
+  dicNbr = 1
+  command = 'python c.py -d <dictionary number (1, 2, or 3)>'
+  example = 'python c.py -d1'
+
+  try:
+    opts, args = getopt.getopt(argv,"hd:",["ddictionary="])
+  except getopt.GetoptError:
+    print ('Number of arguments: ' + str(len(sys.argv)) +  ' arguments.')
+    print ('Argument List: ' + str(sys.argv))
+    print (command)
+    print (example)
+    sys.exit(2)
+
+  for opt, arg in opts:
+    if opt == '-h':
+      print (command)
+      print (example)
+      sys.exit()
+    elif opt in ("-d", "--ddictionary"):
+      dicNbr = arg
+
+  if (len(sys.argv) == 1):
+      print ("Error: Tiene que pasar un argumento con el número de diccionario.")
+      print (command)
+      print (example)
+      sys.exit()
+  
+  if (int(dicNbr) < 1 or int(dicNbr) > 3):
+    dicNbr = 1
+
+  return dicNbr
+
+
+def main(argv):
+  dicNbr = getInputParams(argv)
+  process(dicNbr)
+
+
+if __name__ == "__main__":
+  main(sys.argv[1:])
