@@ -2,7 +2,7 @@
 # to run: python3 c.py
 #
 # Posibilities: 2**32 = 4.294.967.296 (4K29 Millon keys), (128 bits - (8*12) bits = 32 bits)
-# El script arroja: 3043 keys en 60" / el total se calcularía en 876 días.
+# El script arroja: 3043 keys en 60 segs / el total se calcularia en 876 dias.
 
 import os
 import sys
@@ -110,7 +110,7 @@ def process(dicNbr):
       if (match):
         out(pk, sk, words, pswd)
       else:
-        now = (datetime.now() - date1)
+        now = str(datetime.now() - date1)
         print(now, total+1, flush+1, words, pswd, pk, sk)
         flush += 1
         if (flush > maxRecords):
@@ -141,7 +141,7 @@ def getInputParams(argv):
       dicNbr = arg
 
   if (len(sys.argv) == 1):
-      print ("Error: Tiene que pasar un argumento con el número de diccionario.")
+      print ("Error: Tiene que pasar un argumento con el numero de diccionario.")
       print (command)
       print (example)
       sys.exit()
