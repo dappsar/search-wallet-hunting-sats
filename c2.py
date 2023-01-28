@@ -131,12 +131,14 @@ def process(dicNbr, seeds, pswd, wallet):
   if (pswd == '*'):
     pswd = getUniqueWord(getDict(dicNbr), seeds)
 
-  missings = seeds[9:]
   corrects = corrects.strip()
+  missings = seeds[len(corrects.split(' ')):]
   #print(missings, corrects)
+  #print(len(missings))
   #exit(1)
   for c in itertools.permutations(getDict(dicNbr), r=len(missings)):
-    words  = corrects + ' ' + ' '.join(c[:3])
+    words  = corrects + ' ' + ' '.join(c[:len(missings)])
+    #print(c)
     #print(words)
     #exit(1)
     match, pk, sk = searchWallet(wallet, words, pswd)
@@ -190,8 +192,8 @@ def main(argv):
   dicNbr = getInputParams(argv)
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
-  seeds = ['blast','hollow','state','monkey', 'elder', 'present','horse',
-           'argue','select','*','*','*'] ## select? IMAGE FAN SATOSHI
+  seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+           'argue','horse','*','*','*'] ## select? IMAGE FAN SATOSHI
   pswd = '' #'HuntingSats' # Just I guest for now!
 
   # just for test

@@ -181,14 +181,15 @@ def main(argv):
   dicNbr = getInputParams(argv)
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
-  seeds = ['blast','hollow','state','monkey', 'elder', 'present','horse',
-           'argue','select','*','*','*'] ## select? IMAGE FAN SATOSHI
+  seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+           'argue','horse','*','*','*'] ## select? IMAGE FAN SATOSHI
   pswd = '' #'HuntingSats' # Just I guest for now!
 
   # just for test
-  # wallet = 'bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2'
-  # seeds = ['grocery','still','faith','tribe','worth','bleak', 
-  #          'furnace','raven','report','prevent','young','excuse', ""]
+  #wallet = 'bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2'
+  #seeds = ['grocery','still','faith','tribe','worth','bleak', 
+  #          'furnace','raven','report','prevent','young','excuse', ""] # correct
+  #          'furnace','*','*','*','*','*', ""]
   # pswd = ''
 
   process(dicNbr, seeds, pswd, wallet)
@@ -196,3 +197,14 @@ def main(argv):
 
 if __name__ == "__main__":
   main(sys.argv[1:])
+
+# 1. blast, cryptoSteel
+# 2. hollow, cointkite
+# 3. state, BTCPay
+# 4. monkey, BullBitcoin, 25-01 03:34 pm
+# 5. select, wasabi wallet, 26-01 12:26 pm
+# 6. elder, BlocStream 26-01 01:11 pm
+# 7. present, holdHodl, 26-01 04:00 pm
+# 8. argue, bitcoinReserve, 27-01 01:55 pm
+# 9. horse, bitalion, 27-01, 02:09 pm
+# love, wizardSaries, 28-01, 02:15 pm
