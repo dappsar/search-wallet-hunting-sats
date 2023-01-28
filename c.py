@@ -183,7 +183,7 @@ def main(argv):
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
   seeds = ['blast','hollow','state','monkey', 'elder', 'present','horse',
            'argue','*','*','*','*'] ## IMAGE FAN SATOSHI
-  pswd = 'HuntingSats' # Just I guest for now!
+  pswd = '' #'HuntingSats' # Just I guest for now!
 
   # just for test
   # wallet = 'bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2'
