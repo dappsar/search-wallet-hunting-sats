@@ -3,16 +3,31 @@
 #
 # Posibilities: 2**32 = 4.294.967.296 (4K29 Millon keys), (128 bits - (8*12) bits = 32 bits)
 # El script arroja: 3043 keys en 60 segs / el total se calcularia en 876 dias.
-
+# La Wallet a obtener es BTC BIP84: bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6, Path: m/84'/0'/0'/0/0
+#
+# for TEST:
+# wallet: bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2
+# seeds: grocery still faith tribe worth bleak furnace raven report prevent young excuse
+# generate: 
+#   - bip32: Path: m/0'/0'/0 - Address: 16sRpnVnCAy8JKRinVV7UYEXYyqT1peujo
+#   - bip44: Path: m/44'/0'/0'/0/0 - Address: 17QtS9Vq95ZpoawFkTdg2Ms3DgG1k1xCzm
+#   - bip49: Path: m/49'/0'/0'/0/0 - Address: 3QaYqaqz1HvuXVFXLZtcgPdqhwwMYB1n8S
+#   - bip84: Path: m/84'/0'/0'/0/0 - Address: bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2
+#   - bip86: Path: m/86'/0'/0'/0/0 - Address: bc1prjdh9lr236n988yf5yx3a2ecnmad096nylr655r073dsnm5qzfmskjgmkh
+#
+# Se puede ver aquí el detalle de generación para cada path: https://bitcoiner.guide/seed/
+#
 import os
 import sys
 import random
-import binascii
 import mnemonic.mnemonic as mnemonic
-import bip32utils
 import itertools
 import getopt
 from datetime import datetime, timedelta
+from pycoin.symbols.btc import network as btc
+from pycoin.networks.bitcoinish import create_bitcoinish_network as btcnet
+from string import hexdigits
+
 
 def getUniqueWord(dic, currentWords):
   while True:
@@ -35,21 +50,36 @@ def bip39(mnemonic_words, password = ''):
   mobj = mnemonic.Mnemonic("english")
   seed = mobj.to_seed(mnemonic_words, password)
 
-  bip32_root_key_obj = bip32utils.BIP32Key.fromEntropy(seed)
-  bip32_child_key_obj = bip32_root_key_obj.ChildKey(
-    44 + bip32utils.BIP32_HARDEN
-  ).ChildKey(
-    0 + bip32utils.BIP32_HARDEN
-  ).ChildKey(
-    0 + bip32utils.BIP32_HARDEN
-  ).ChildKey(0).ChildKey(0)
+  #bip32_root_key_obj = bip32utils.BIP32Key.fromEntropy(seed)
+  #bip32_child_key_obj = bip32_root_key_obj
+  #.ChildKey(84 + bip32utils.BIP84)
+  #.ChildKey(0)
+  #.ChildKey(0)
+  #.ChildKey(0)
+  #.ChildKey(0)
+
+  ACCT84 = '84H/0H/0H'
+  HW84 = dict(bip32_pub_prefix_hex="04b24746", bip32_prv_prefix_hex="04b2430c")
+  net = btcnet("", "", "", **dict(wif_prefix_hex="80", **HW84))
+
+  acct = net.keys.bip32_seed(seed).subkey_for_path(ACCT84)
+  key  = acct.subkey_for_path('0/0')
+  hash = key.hash160(is_compressed=True)
+  wif  = key.wif()
+  xpub = acct.hwif(as_private=False)
+  addr = btc.address.for_p2pkh_wit(hash)   
+  xprv = acct.hwif(as_private=True)
+
 
   return {
     'mnemonic_words': mnemonic_words,
-    'addr': bip32_child_key_obj.Address(),
-    'publickey': binascii.hexlify(bip32_child_key_obj.PublicKey()).decode(),
-    'privatekey': bip32_child_key_obj.WalletImportFormat(),
-    'coin': 'BTC'
+    'addr': addr,
+    'publickey': xpub,
+    'privatekey': wif
+    #'addr': bip32_child_key_obj.Address(),
+    #'publickey': binascii.hexlify(bip32_child_key_obj.PublicKey()).decode(),
+    #'privatekey': bip32_child_key_obj.WalletImportFormat(),
+    #'coin': 'BTC'
   }
 
 
@@ -66,55 +96,51 @@ def out(pk, sk, words, pswd):
   exit(0)
 
 
-def searchWallet(words, pswd):
-  public = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
+def searchWallet(wallet, words, pswd):
   result = bip39(words.upper(), pswd.upper())
   pk = result['addr']
   sk = result['privatekey']
-  match = pk.strip().upper() == public.upper()
+  match = pk.strip().upper() == wallet.upper()
 
   if (match):
     return True, pk, sk
 
   # serach lower case  
   result = bip39(words.lower(), pswd.lower())
-  pk = result['addr']
+  addr = result['addr']
   sk = result['privatekey']
-  match = pk.strip().lower() == public.lower()
+  match = addr.strip().lower() == wallet.lower()
 
-  return match, pk, sk
+  return match, addr, sk
 
 
-def process(dicNbr):
+def process(dicNbr, seeds, pswd, wallet):
   flush = 0
   total = 0
   maxRecords = 1000000
   date1 = datetime.now()
 
-  seeds = [
-    'blast','hollow','state','monkey','elder','argue',
-    '*','*','*','*','*','*','*']
-
-  for i in range(13):
+  for i in range(12):
     if (seeds[i] == '*'):
       missingSeed = getUniqueWord(getDict(dicNbr), seeds)
       seeds[i] = missingSeed
 
-  for c in itertools.permutations(seeds, r=len(seeds)):
-      words  = ' '.join(c[:12])
-      pswd  = c[12:][0]
-      
-      match, pk, sk = searchWallet(words, pswd)
+  if (pswd == '*'):
+    pswd = getUniqueWord(getDict(dicNbr), seeds)
 
-      if (match):
-        out(pk, sk, words, pswd)
-      else:
-        now = str(datetime.now() - date1)
-        print(now, total+1, flush+1, words, pswd, pk, sk)
-        flush += 1
-        if (flush > maxRecords):
-          flush = 0
-          total += 1
+  for c in itertools.permutations(seeds, r=len(seeds)):
+    words  = ' '.join(c[:12])
+    match, pk, sk = searchWallet(wallet, words, pswd)
+
+    if (match):
+      out(pk, sk, words, pswd)
+    else:
+      now = str(datetime.now() - date1)
+      print(now, total+1, flush+1, words, pswd, pk, sk)
+      flush += 1
+      if (flush > maxRecords):
+        flush = 0
+        total += 1
 
 
 def getInputParams(argv):
@@ -153,7 +179,19 @@ def getInputParams(argv):
 
 def main(argv):
   dicNbr = getInputParams(argv)
-  process(dicNbr)
+  # challenge 
+  wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
+  seeds = ['blast','hollow','state','monkey','elder','argue',
+           '*','*','*','*','*','*']
+  pswd = 'huntingsats' # Just I guest for now!
+
+  # just for test
+  # wallet = 'bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2'
+  # seeds = ['grocery','still','faith','tribe','worth','bleak', 
+  #          'furnace','raven','report','prevent','young','excuse', ""]
+  # pswd = ''
+
+  process(dicNbr, seeds, pswd, wallet)
 
 
 if __name__ == "__main__":

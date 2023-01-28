@@ -54,3 +54,6 @@ In a terminal execute:
 
 - [How I checked over 1 trillion mnemonics in 30 hours to win a bitcoin](https://medium.com/@johncantrell97/how-i-checked-over-1-trillion-mnemonics-in-30-hours-to-win-a-bitcoin-635fe051a752)
 
+- [BTC Recover Crypto Guide wallet password and seed recovery tools open source](https://github.com/demining/BTC-Recover-Crypto-Guide)
+
+- [BTC Recover documentation](https://btcrecover.readthedocs.io/)
