@@ -181,9 +181,9 @@ def main(argv):
   dicNbr = getInputParams(argv)
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
-  seeds = ['BLAST','HOLLOW','STATE','MONKEY','ELDER','ARGUE',
-           '*','*','*','*','*','*'] ## IMAGE FAN SATOSHI
-  pswd = 'HUNTINGSATS' # Just I guest for now!
+  seeds = ['BLAST','HOLLOW','STATE','MONKEY', 'ELDER', 'PRESENT','HORSE',
+           'ARGUE','*','*','*','*'] ## IMAGE FAN SATOSHI
+  pswd = 'HuntingSats' # Just I guest for now!
 
   # just for test
   # wallet = 'bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2'
