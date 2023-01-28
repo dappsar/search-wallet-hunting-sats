@@ -119,17 +119,26 @@ def process(dicNbr, seeds, pswd, wallet):
   total = 0
   maxRecords = 1000000
   date1 = datetime.now()
+  corrects = ''
 
   for i in range(12):
     if (seeds[i] == '*'):
       missingSeed = getUniqueWord(getDict(dicNbr), seeds)
       seeds[i] = missingSeed
+    else:
+      corrects += ' '+seeds[i]
 
   if (pswd == '*'):
     pswd = getUniqueWord(getDict(dicNbr), seeds)
 
-  for c in itertools.permutations(seeds, r=len(seeds)):
-    words  = ' '.join(c[:12])
+  missings = seeds[9:]
+  corrects = corrects.strip()
+  #print(missings, corrects)
+  #exit(1)
+  for c in itertools.permutations(getDict(dicNbr), r=len(missings)):
+    words  = corrects + ' ' + ' '.join(c[:3])
+    #print(words)
+    #exit(1)
     match, pk, sk = searchWallet(wallet, words, pswd)
 
     if (match):
