@@ -15,7 +15,7 @@
 #   - bip84: Path: m/84'/0'/0'/0/0 - Address: bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2
 #   - bip86: Path: m/86'/0'/0'/0/0 - Address: bc1prjdh9lr236n988yf5yx3a2ecnmad096nylr655r073dsnm5qzfmskjgmkh
 #
-# Se puede ver aquí el detalle de generación para cada path: https://bitcoiner.guide/seed/
+# Se puede ver el detalle de generacion para cada path en: https://bitcoiner.guide/seed/
 #
 import os
 import sys
