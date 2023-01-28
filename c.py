@@ -1,5 +1,5 @@
 # requirements: python, pip, pip install bip32utils mnemonic
-# to run: python3 c.py
+# to run: python3 c.py 1
 #
 # Posibilities: 2**32 = 4.294.967.296 (4K29 Millon keys), (128 bits - (8*12) bits = 32 bits)
 # El script arroja: 3043 keys en 60 segs / el total se calcularia en 876 dias.
@@ -67,7 +67,7 @@ def out(pk, sk, words, pswd):
 
 
 def searchWallet(words, pswd):
-  public = '1A9vZ4oPLb29szfRWVFe1VoEe7a2qEMjvJ'
+  public = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
   result = bip39(words.upper(), pswd.upper())
   pk = result['addr']
   sk = result['privatekey']

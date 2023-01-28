@@ -47,3 +47,10 @@ The Python script in this report helps to find correct secret key and crack the 
 In a terminal execute: 
 
 `$ python c.py`
+
+---
+
+# References Links
+
+- [How I checked over 1 trillion mnemonics in 30 hours to win a bitcoin](https://medium.com/@johncantrell97/how-i-checked-over-1-trillion-mnemonics-in-30-hours-to-win-a-bitcoin-635fe051a752)
+
