@@ -1,5 +1,5 @@
-# requirements: python, pip, pip install bip32utils mnemonic
-# to run: python3 c.py 1
+# requirements: python, pip, pip install bip32utils mnemonic pycoin
+# to run: python3 c.py -d2
 #
 # Posibilities: 2**32 = 4.294.967.296 (4K29 Millon keys), (128 bits - (8*12) bits = 32 bits)
 # El script arroja: 3043 keys en 60 segs / el total se calcularia en 876 dias.
@@ -181,9 +181,9 @@ def main(argv):
   dicNbr = getInputParams(argv)
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
-  seeds = ['blast','hollow','state','monkey','elder','argue',
-           '*','*','*','*','*','*']
-  pswd = 'huntingsats' # Just I guest for now!
+  seeds = ['BLAST','HOLLOW','STATE','MONKEY','ELDER','ARGUE',
+           '*','*','*','*','*','*'] ## IMAGE FAN SATOSHI
+  pswd = 'HUNTINGSATS' # Just I guest for now!
 
   # just for test
   # wallet = 'bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2'

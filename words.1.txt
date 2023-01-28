@@ -657,7 +657,7 @@ fade
 faint
 faith
 fall
-FALSE
+false
 fame
 family
 famous
