@@ -234,8 +234,7 @@ def main(argv):
             'argue','horse','fire','hold','lake','*']
 
   # passphrase is one of the word in array
-  process(dicNbr, seeds, wallet, sUpper, sLower)
-
+  process(dicNbr, random.sample(seeds,13), wallet, sUpper, sLower)
 
 if __name__ == "__main__":
   main(sys.argv[1:])
