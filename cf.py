@@ -259,9 +259,3 @@ if __name__ == "__main__":
 #---------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------
 
-
-  # TEST 2: just for test con passphrase (passphrase = pepe)
-  # poner la passphrase en el array de arriba, llamado "pswds"
-  #wallet = 'bc1qt362xg79gqujhu3djvq4lrzv9axfd9ucfef40s'
-  #seeds = ['grocery','still','faith','tribe','worth','bleak', 
-  #         'furnace','raven','report','prevent','young','excuse']
