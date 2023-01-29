@@ -46,9 +46,9 @@ def getDict(dicNbr):
   return dic
 
 
-def bip39(mnemonic_words, password = ''):
+def bip39(mnemonic_words, passphrase = ''):
   mobj = mnemonic.Mnemonic("english")
-  seed = mobj.to_seed(mnemonic_words, password)
+  seed = mobj.to_seed(mnemonic_words, passphrase)
 
   #bip32_root_key_obj = bip32utils.BIP32Key.fromEntropy(seed)
   #bip32_child_key_obj = bip32_root_key_obj
@@ -186,13 +186,13 @@ def main(argv):
   seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
            'argue','horse','fire','*','*'] ## select? IMAGE FAN SATOSHI
   
-  # TEST 2: just for test con password (password = pepe)
-  # poner la password en el array de arriba, llamado "pswds"
+  # TEST 2: just for test con passphrase (passphrase = pepe)
+  # poner la passphrase en el array de arriba, llamado "pswds"
   #wallet = 'bc1qt362xg79gqujhu3djvq4lrzv9axfd9ucfef40s'
   #seeds = ['grocery','still','faith','tribe','worth','bleak', 
   #         'furnace','raven','report','prevent','young','excuse']
 
-  # password is one of the word in array
+  # passphrase is one of the word in array
   process(dicNbr, seeds, wallet)
 
 

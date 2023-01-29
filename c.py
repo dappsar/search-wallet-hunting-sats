@@ -46,9 +46,9 @@ def getDict(dicNbr):
   return dic
 
 
-def bip39(mnemonic_words, password = ''):
+def bip39(mnemonic_words, passphrase = ''):
   mobj = mnemonic.Mnemonic("english")
-  seed = mobj.to_seed(mnemonic_words, password)
+  seed = mobj.to_seed(mnemonic_words, passphrase)
 
   #bip32_root_key_obj = bip32utils.BIP32Key.fromEntropy(seed)
   #bip32_child_key_obj = bip32_root_key_obj
