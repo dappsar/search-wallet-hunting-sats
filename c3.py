@@ -96,8 +96,9 @@ def out(pk, sk, words, pswd):
   exit(0)
 
 
-def searchWallet(wallet, words, pswd):
-  result = bip39(words.upper(), pswd.upper())
+def searchWallet(wallet, words, pswd, sUpper=False, sLower=False):
+  # search as it (pswd)
+  result = bip39(words, pswd)
   pk = result['addr']
   sk = result['privatekey']
   match = pk.strip().upper() == wallet.upper()
@@ -105,15 +106,27 @@ def searchWallet(wallet, words, pswd):
   if (match):
     return True, pk, sk
 
-  # serach lower case  
-  result = bip39(words.lower(), pswd.lower())
-  addr = result['addr']
-  sk = result['privatekey']
-  match = addr.strip().lower() == wallet.lower()
+  if (sUpper):
+    # search upper case
+    result = bip39(words.upper(), pswd.upper())
+    pk = result['addr']
+    sk = result['privatekey']
+    match = pk.strip().upper() == wallet.upper()
 
-  return match, addr, sk
+    if (match):
+      return True, pk, sk
 
-def process(dicNbr, seeds, wallet):
+  if (sLower):
+    # search lower case  
+    result = bip39(words.lower(), pswd.lower())
+    pk = result['addr']
+    sk = result['privatekey']
+    match = addr.strip().lower() == wallet.lower()
+
+  return match, pk, sk
+
+
+def process(dicNbr, seeds, wallet, sUpper, sLower):
   flush = 0
   total = 0
   maxRecords = 1000000
@@ -132,7 +145,7 @@ def process(dicNbr, seeds, wallet):
     words  = ' '.join(c[:12])
 
     for pswd in pswds: # max iterations: 12
-      match, pk, sk = searchWallet(wallet, words, pswd)
+      match, pk, sk = searchWallet(wallet, words, pswd, sUpper, sLower)
 
       now = str(datetime.now() - date1)
       print(now, total+1, flush+1, words, pswd, pk, sk)
@@ -147,11 +160,14 @@ def process(dicNbr, seeds, wallet):
 
 def getInputParams(argv):
   dicNbr = 1
-  command = 'python c.py -d <dictionary number (1, 2, or 3)>'
-  example = 'python c.py -d1'
+  wordsListNbr = 1
+  sUpper = False
+  sLower = False
+  command = 'python c3.py -d <dictionary number (1, 2, or 3)> -w <words list number to use (1, 2, or 3)> -u <search upperCase (True or False)> -l <search lowerCase (True or False)>'
+  example = 'python c3.py -d1 -w1 -uFalse -lFalse'
 
   try:
-    opts, args = getopt.getopt(argv,"hd:",["ddictionary="])
+    opts, args = getopt.getopt(argv,"hd:w:u:l:",["ddictionary=", "wwordListNbr=", "usearchUpper=", "usearchLower=" ])
   except getopt.GetoptError:
     print ('Number of arguments: ' + str(len(sys.argv)) +  ' arguments.')
     print ('Argument List: ' + str(sys.argv))
@@ -166,9 +182,15 @@ def getInputParams(argv):
       sys.exit()
     elif opt in ("-d", "--ddictionary"):
       dicNbr = arg
-
-  if (len(sys.argv) == 1):
-      print ("Error: Tiene que pasar un argumento con el numero de diccionario.")
+    elif opt in ("-w", "--wwordListNbr"):
+      wordsListNbr = arg
+    elif opt in ("-u", "--usearchUpper"):
+      sUpper = arg
+    elif opt in ("-l", "--lserchLower"):
+      sLower = arg
+  
+  if (len(sys.argv) <= 2):
+      print ("Error: Tiene que pasar un argumento con el numero de diccionario.y el numero de lista para las palabras")
       print (command)
       print (example)
       sys.exit()
@@ -176,29 +198,57 @@ def getInputParams(argv):
   if (int(dicNbr) < 1 or int(dicNbr) > 3):
     dicNbr = 1
 
-  return dicNbr
+  if (int(wordsListNbr) < 1 or int(wordsListNbr) > 6):
+    wordsListNbr = 1
+
+  if (sUpper != False or sUpper != True):
+    sUpper = False
+
+  if (sLower != False or sLower != True):
+    sLower = False
+
+  return dicNbr, wordsListNbr, sUpper, sLower
 
 
 def main(argv):
-  dicNbr = getInputParams(argv)
+  dicNbr, wordsListNbr, sUpper, sLower = getInputParams(argv)
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
-  seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-           'argue','horse','fire','*','*'] ## select? IMAGE FAN SATOSHI
-  
-  # TEST 2: just for test con passphrase (passphrase = pepe)
-  # poner la passphrase en el array de arriba, llamado "pswds"
-  #wallet = 'bc1qt362xg79gqujhu3djvq4lrzv9axfd9ucfef40s'
-  #seeds = ['grocery','still','faith','tribe','worth','bleak', 
-  #         'furnace','raven','report','prevent','young','excuse']
+
+  if (wordsListNbr == 1):
+    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+            'argue','horse','wood','hold','just']
+
+  if (wordsListNbr == 2):
+    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+            'argue','horse','wood','hold','timber']
+
+  if (wordsListNbr == 3):
+    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+            'argue','horse','wood','hold','lake']
+
+  if (wordsListNbr == 4):
+    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+            'argue','horse','fire','hold','just']
+
+  if (wordsListNbr == 5):
+    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+            'argue','horse','fire','hold','timber']
+
+  if (wordsListNbr == 6):
+    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+            'argue','horse','fire','hold','lake']
 
   # passphrase is one of the word in array
-  process(dicNbr, seeds, wallet)
+  # process(dicNbr, random.sample(seeds,12), wallet)
+  process(dicNbr, seeds, wallet, sUper, sLower)
 
 
 if __name__ == "__main__":
   main(sys.argv[1:])
 
+#---------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------
 
 # 1. blast, cryptoSteel
 # 2. hollow, cointkite
@@ -209,8 +259,17 @@ if __name__ == "__main__":
 # 7. present, holdHodl, 26-01 04:00 pm
 # 8. argue, bitcoinReserve, 27-01 01:55 pm
 # 9. horse, memPool, 27-01, 02:09 pm
-#! 10. wood, wizardSardine, 28-01, 02:15 pm
-#! 11.
-#! 12.
+#! 10. wood, wizardSardine, 28-01, 02:15 pm (no esta confirmado si es wood, podría ser fire también)
+#! 11. profit o hold, trezor, 29-01 11:29 am
+#! 12. just o timber o lake , bitcoin takeover, 29-01, 14.23 (tiraorn 3 una sola es correcta)
 #! 13.
 
+#---------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------
+
+
+  # TEST 2: just for test con passphrase (passphrase = pepe)
+  # poner la passphrase en el array de arriba, llamado "pswds"
+  #wallet = 'bc1qt362xg79gqujhu3djvq4lrzv9axfd9ucfef40s'
+  #seeds = ['grocery','still','faith','tribe','worth','bleak', 
+  #         'furnace','raven','report','prevent','young','excuse']

@@ -182,7 +182,7 @@ def main(argv):
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
   seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-           'argue','horse','fire','*','*'] ## select? IMAGE FAN SATOSHI
+           'argue','horse','fire','profit','*'] ## select? IMAGE FAN SATOSHI
   pswd = '' #'HuntingSats' # Just I guest for now!
 
   # just for test
