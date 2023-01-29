@@ -191,7 +191,7 @@ def getInputParams(argv):
   if (int(dicNbr) < 1 or int(dicNbr) > 3):
     dicNbr = 1
 
-  if (int(wordsListNbr) < 1 or int(wordsListNbr) > 9):
+  if (int(wordsListNbr) < 1 or int(wordsListNbr) > 10):
     wordsListNbr = 1
 
   if (sUpper != False or sUpper != True):
@@ -244,6 +244,10 @@ def main(argv):
   if (wordsListNbr == 9):
     seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
             'argue','horse','*','hold','lake','*']
+
+  if (wordsListNbr == 10):
+    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+            'argue','horse','ocean','hold','timber','*']
 
   # passphrase is one of the word in array
   process(dicNbr, random.sample(seeds,13), wallet, sUpper, sLower)
