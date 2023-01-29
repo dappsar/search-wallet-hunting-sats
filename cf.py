@@ -113,36 +113,33 @@ def searchWallet(wallet, words, pswd):
 
   return match, addr, sk
 
+
 def process(dicNbr, seeds, wallet):
   flush = 0
   total = 0
   maxRecords = 1000000
   date1 = datetime.now()
-  pswds = []
   
-  for i in range(12):
+  for i in range(13):
     if (seeds[i] == '*'):
       missingSeed = getUniqueWord(getDict(dicNbr), seeds)
       seeds[i] = missingSeed
-      pswds.append(missingSeed)
-    else:
-      pswds.append(seeds[i])
 
   for c in itertools.permutations(seeds, r=len(seeds)):
-    words  = ' '.join(c[:12])
+      words  = ' '.join(c[:12])
+      pswd  = c[12:][0]
 
-    for pswd in pswds: # max iterations: 12
       match, pk, sk = searchWallet(wallet, words, pswd)
 
-      now = str(datetime.now() - date1)
-      print(now, total+1, flush+1, words, pswd, pk, sk)
-      flush += 1
-      if (flush > maxRecords):
-        flush = 0
-        total += 1
-
-      if (match): 
+      if (match):
         out(pk, sk, words, pswd)
+      else:
+        now = str(datetime.now() - date1)
+        print(now, total+1, flush+1, words, pswd, pk, sk)
+        flush += 1
+        if (flush > maxRecords):
+          flush = 0
+          total += 1
 
 
 def getInputParams(argv):
@@ -184,13 +181,12 @@ def main(argv):
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
   seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-           'argue','horse','fire','*','*'] ## select? IMAGE FAN SATOSHI
+           'argue','horse','fire','*','*', '*'] ## select? IMAGE FAN SATOSHI
   
-  # TEST 2: just for test con password (password = pepe)
-  # poner la password en el array de arriba, llamado "pswds"
-  #wallet = 'bc1qt362xg79gqujhu3djvq4lrzv9axfd9ucfef40s'
-  #seeds = ['grocery','still','faith','tribe','worth','bleak', 
-  #         'furnace','raven','report','prevent','young','excuse']
+  # TEST 2: just for test con password
+  # wallet = 'bc1qt362xg79gqujhu3djvq4lrzv9axfd9ucfef40s'
+  # seeds = ['grocery','still','faith','tribe','worth','bleak', 
+  #          'furnace','raven','report','prevent','young','excuse', 'pepe']
 
   # password is one of the word in array
   process(dicNbr, seeds, wallet)
