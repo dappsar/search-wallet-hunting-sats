@@ -57,3 +57,5 @@ In a terminal execute:
 - [BTC Recover Crypto Guide wallet password and seed recovery tools open source](https://github.com/demining/BTC-Recover-Crypto-Guide)
 
 - [BTC Recover documentation](https://btcrecover.readthedocs.io/)
+
+- [What Is HuntingSats?](https://bitcoin-takeover.com/what-is-huntingsats/)

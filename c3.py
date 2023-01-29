@@ -114,33 +114,32 @@ def searchWallet(wallet, words, pswd):
   return match, addr, sk
 
 
-def process(dicNbr, seeds, pswd, wallet):
+def process(dicNbr, seeds, wallet):
   flush = 0
   total = 0
   maxRecords = 1000000
   date1 = datetime.now()
-
-  for i in range(12):
+  
+  for i in range(13):
     if (seeds[i] == '*'):
       missingSeed = getUniqueWord(getDict(dicNbr), seeds)
       seeds[i] = missingSeed
 
-  if (pswd == '*'):
-    pswd = getUniqueWord(getDict(dicNbr), seeds)
-
   for c in itertools.permutations(seeds, r=len(seeds)):
-    words  = ' '.join(c[:12])
-    match, pk, sk = searchWallet(wallet, words.strip(), pswd)
+      words  = ' '.join(c[:12])
+      pswd  = c[12:][0]
 
-    if (match):
-      out(pk, sk, words, pswd)
-    else:
-      now = str(datetime.now() - date1)
-      print(now, total+1, flush+1, words, pswd, pk, sk)
-      flush += 1
-      if (flush > maxRecords):
-        flush = 0
-        total += 1
+      match, pk, sk = searchWallet(wallet, words, pswd)
+
+      if (match):
+        out(pk, sk, words, pswd)
+      else:
+        now = str(datetime.now() - date1)
+        print(now, total+1, flush+1, words, pswd, pk, sk)
+        flush += 1
+        if (flush > maxRecords):
+          flush = 0
+          total += 1
 
 
 def getInputParams(argv):
@@ -182,21 +181,20 @@ def main(argv):
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
   seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-           'argue','horse','fire','*','*'] ## select? IMAGE FAN SATOSHI
-  pswd = '' #'HuntingSats' # Just I guest for now!
+           'argue','horse','fire','*','*', '*'] ## select? IMAGE FAN SATOSHI
+  
+  # TEST 2: just for test con password
+  # wallet = 'bc1qt362xg79gqujhu3djvq4lrzv9axfd9ucfef40s'
+  # seeds = ['grocery','still','faith','tribe','worth','bleak', 
+  #          'furnace','raven','report','prevent','young','excuse', 'pepe']
 
-  # just for test
-  #wallet = 'bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2'
-  #seeds = ['grocery','still','faith','tribe','worth','bleak', 
-  #          'furnace','raven','report','prevent','young','excuse'] # correct
-  #          'furnace','*','*','*','*','*']
-  # pswd = ''
-
-  process(dicNbr, seeds, pswd, wallet)
+  # password is one of the word in array
+  process(dicNbr, seeds, wallet)
 
 
 if __name__ == "__main__":
   main(sys.argv[1:])
+
 
 # 1. blast, cryptoSteel
 # 2. hollow, cointkite
@@ -211,3 +209,4 @@ if __name__ == "__main__":
 #! 11.
 #! 12.
 #! 13.
+
