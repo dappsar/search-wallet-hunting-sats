@@ -130,7 +130,7 @@ def process(dicNbr, seeds, pswd, wallet):
 
   for c in itertools.permutations(seeds, r=len(seeds)):
     words  = ' '.join(c[:12])
-    match, pk, sk = searchWallet(wallet, words, pswd)
+    match, pk, sk = searchWallet(wallet, words.strip(), pswd)
 
     if (match):
       out(pk, sk, words, pswd)
@@ -182,14 +182,14 @@ def main(argv):
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
   seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-           'argue','horse','*','*','*'] ## select? IMAGE FAN SATOSHI
+           'argue','horse','fie','*','*'] ## select? IMAGE FAN SATOSHI
   pswd = '' #'HuntingSats' # Just I guest for now!
 
   # just for test
   #wallet = 'bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2'
   #seeds = ['grocery','still','faith','tribe','worth','bleak', 
-  #          'furnace','raven','report','prevent','young','excuse', ""] # correct
-  #          'furnace','*','*','*','*','*', ""]
+  #          'furnace','raven','report','prevent','young','excuse'] # correct
+  #          'furnace','*','*','*','*','*']
   # pswd = ''
 
   process(dicNbr, seeds, pswd, wallet)

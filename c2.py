@@ -133,15 +133,24 @@ def process(dicNbr, seeds, pswd, wallet):
 
   corrects = corrects.strip()
   missings = seeds[len(corrects.split(' ')):]
-  #print(missings, corrects)
+  
+  iteration = len(missings)
+  if (missings == ''):
+    iteration = len(seeds)
+  #print(iteration)
+  #print(missings)
   #print(len(missings))
   #exit(1)
+
   for c in itertools.permutations(getDict(dicNbr), r=len(missings)):
-    words  = corrects + ' ' + ' '.join(c[:len(missings)])
+    if len(corrects.split(' ')) == len(seeds):
+      words = corrects
+    else: 
+      words  = corrects + ' ' + ' '.join(c[:len(missings)])
     #print(c)
-    #print(words)
+    #print(words.strip())
     #exit(1)
-    match, pk, sk = searchWallet(wallet, words, pswd)
+    match, pk, sk = searchWallet(wallet, words.strip(), pswd)
 
     if (match):
       out(pk, sk, words, pswd)
@@ -193,14 +202,20 @@ def main(argv):
   # challenge 
   wallet = 'bc1q7kw2uepv6hfffhhxx2vplkkpcwsslcw9hsupc6'
   seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-           'argue','horse','*','*','*'] ## select? IMAGE FAN SATOSHI
+           'argue','horse','fire','*','*'] ## select? IMAGE FAN SATOSHI
   pswd = '' #'HuntingSats' # Just I guest for now!
 
-  # just for test
+  # TEST 1
   # wallet = 'bc1qm4zz7jstwp5x5cqhmljtj76rvy63xglxwslfs2'
   # seeds = ['grocery','still','faith','tribe','worth','bleak', 
-  #          'furnace','raven','report','prevent','young','excuse', ""]
+  #          'furnace','raven','report','prevent','young','excuse']
   # pswd = ''
+
+  # TEST 2: just for test con password
+  # wallet = 'bc1qt362xg79gqujhu3djvq4lrzv9axfd9ucfef40s'
+  # seeds = ['grocery','still','faith','tribe','worth','bleak', 
+  #           'furnace','raven','report','prevent','young','excuse']
+  # pswd = 'pepe'
 
   process(dicNbr, seeds, pswd, wallet)
 
