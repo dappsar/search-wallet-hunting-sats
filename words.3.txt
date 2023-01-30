@@ -863,6 +863,7 @@ hire
 history
 hobby
 hockey
+hold
 hole
 holiday
 home
@@ -963,6 +964,7 @@ jump
 jungle
 junior
 junk
+just
 kangaroo
 keen
 keep
@@ -988,6 +990,7 @@ label
 labor
 ladder
 lady
+lake
 lamp
 language
 laptop
@@ -1362,7 +1365,6 @@ prize
 problem
 process
 produce
-profit
 program
 project
 promote
@@ -1476,7 +1478,6 @@ ridge
 rifle
 right
 rigid
-ring
 riot
 ripple
 risk
@@ -2010,6 +2011,7 @@ witness
 wolf
 woman
 wonder
+wood
 wool
 word
 work

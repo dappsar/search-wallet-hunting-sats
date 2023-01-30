@@ -211,7 +211,7 @@ def main(argv):
 
   if (wordsListNbr == 1):
     seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','precious','profit','timber','*']
+            'argue','horse','ring','profit','timber','*']
 
   # passphrase is one of the word in array
   # process(dicNbr, random.sample(seeds,13), wallet, sUpper, sLower)
