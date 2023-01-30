@@ -211,54 +211,11 @@ def main(argv):
 
   if (wordsListNbr == 1):
     seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','wood','hold','just','*']
-
-  if (wordsListNbr == 2):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','wood','hold','timber','*']
-
-  if (wordsListNbr == 3):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','wood','hold','lake','*']
-
-  if (wordsListNbr == 4):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','fire','hold','just','*']
-
-  if (wordsListNbr == 5):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','fire','hold','timber','*']
-
-  if (wordsListNbr == 6):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','fire','hold','lake','*']
-
-  if (wordsListNbr == 7):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','*','hold','just','*']
-
-  if (wordsListNbr == 8):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','*','hold','timber','*']
-
-  if (wordsListNbr == 9):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','*','hold','lake','*']
-
-  if (wordsListNbr == 10):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','ocean','hold','timber','*']
-
-  if (wordsListNbr == 11):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','ocean','hold','lake','*']
-
-  if (wordsListNbr == 12):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','ocean','hold','just','*']
+            'argue','horse','precious','profit','timber','*']
 
   # passphrase is one of the word in array
-  process(dicNbr, random.sample(seeds,13), wallet, sUpper, sLower)
+  # process(dicNbr, random.sample(seeds,13), wallet, sUpper, sLower)
+  process(dicNbr, seeds, wallet, sUpper, sLower)
 
 if __name__ == "__main__":
   main(sys.argv[1:])
@@ -275,9 +232,9 @@ if __name__ == "__main__":
 # 7. present, holdHodl, 26-01 04:00 pm
 # 8. argue, bitcoinReserve, 27-01 01:55 pm
 # 9. horse, memPool, 27-01, 02:09 pm
-#! 10. wood, wizardSardine, 28-01, 02:15 pm (no esta confirmado si es wood, podria ser fire tambien)
+#! 10. precious, wizardSardine, 28-01, 02:15 pm (no esta confirmado si es wood, podria ser fire tambien)
 #! 11. profit o hold, trezor, 29-01 11:29 am (la tiraron en forma de acertijo)
-#! 12. just o timber o lake, bitcoin takeover, 29-01, 14.23 (tiraorn 3 una sola es correcta)
+#! 12. timber o lake, bitcoin takeover, 29-01, 14.23 (tiraorn 3 una sola es correcta)
 #! 13.
 
 #---------------------------------------------------------------------------------
