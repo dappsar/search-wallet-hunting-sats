@@ -120,7 +120,7 @@ def searchWallet(wallet, words, pswd, sUpper=False, sLower=False):
     result = bip39(words.lower(), pswd.lower())
     pk = result['addr']
     sk = result['privatekey']
-    match = addr.strip().lower() == wallet.lower()
+    match = pk.strip().lower() == wallet.lower()
 
   return match, pk, sk
 
@@ -211,11 +211,19 @@ def main(argv):
 
   if (wordsListNbr == 1):
     seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','ring','profit','timber','*']
+            'argue','horse','ring','hold','timber','banana']
+
+  if (wordsListNbr == 2):
+    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+            'argue','horse','ring','profit','timber','banana']
+
+  if (wordsListNbr == 3):
+    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
+            'argue','horse','hold','profit','timber','banana']
 
   # passphrase is one of the word in array
   # process(dicNbr, random.sample(seeds,13), wallet, sUpper, sLower)
-  process(dicNbr, seeds, wallet, sUpper, sLower)
+  process(dicNbr, seeds, wallet, True, True)
 
 if __name__ == "__main__":
   main(sys.argv[1:])
@@ -232,10 +240,10 @@ if __name__ == "__main__":
 # 7. present, holdHodl, 26-01 04:00 pm
 # 8. argue, bitcoinReserve, 27-01 01:55 pm
 # 9. horse, memPool, 27-01, 02:09 pm
-#! 10. precious, wizardSardine, 28-01, 02:15 pm (no esta confirmado si es wood, podria ser fire tambien)
-#! 11. profit o hold, trezor, 29-01 11:29 am (la tiraron en forma de acertijo)
-#! 12. timber o lake, bitcoin takeover, 29-01, 14.23 (tiraorn 3 una sola es correcta)
-#! 13.
+# 10. ring, wizardSardine, 28-01, 02:15 pm (no esta confirmado si es wood, podria ser fire tambien)
+# 11. hold, trezor, 29-01 11:29 am (la tiraron en forma de acertijo)
+# 12. timber 29-01, 14.23 (tiraorn 3 una sola es correcta)
+# 13.
 
 #---------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------

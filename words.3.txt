@@ -142,7 +142,6 @@ balance
 balcony
 ball
 bamboo
-banana
 banner
 bar
 barely
