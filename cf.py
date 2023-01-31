@@ -233,9 +233,9 @@ if __name__ == "__main__":
 # 8. argue, bitcoinReserve, 27-01 01:55 pm
 # 9. horse, memPool, 27-01, 02:09 pm
 # 10. ring, wizardSardine, 28-01, 02:15 pm (no esta confirmado si es wood, podria ser fire tambien)
-# 11. hold, trezor, 29-01 11:29 am (la tiraron en forma de acertijo)
+# 11. profit, trezor, 29-01 11:29 am (la tiraron en forma de acertijo)
 # 12. timber 29-01, 14.23 (tiraorn 3 una sola es correcta)
-# 13.
+# 13. banana, Swan, 30-01
 
 #---------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------
