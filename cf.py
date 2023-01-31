@@ -110,7 +110,7 @@ def searchWallet(wallet, words, pswd, sUpper=False, sLower=False):
     result = bip39(words.upper(), pswd.upper())
     pk = result['addr']
     sk = result['privatekey']
-    match = pk.strip().upper() == wallet.upper()
+    match = (pk.strip().upper() == wallet.strip().upper())
 
     if (match):
       return True, pk, sk
@@ -120,7 +120,7 @@ def searchWallet(wallet, words, pswd, sUpper=False, sLower=False):
     result = bip39(words.lower(), pswd.lower())
     pk = result['addr']
     sk = result['privatekey']
-    match = pk.strip().lower() == wallet.lower()
+    match = (pk.strip().upper() == wallet.strip().upper())
 
   return match, pk, sk
 
@@ -138,7 +138,7 @@ def process(dicNbr, seeds, wallet, sUpper, sLower):
   for c in itertools.permutations(seeds, r=len(seeds)):
     words  = ' '.join(c[:12])
     pswd  = c[12:][0]
-    match, pk, sk = searchWallet(wallet, words, pswd, sUpper, sLower)
+    match, pk, sk = searchWallet(wallet, words, pswd.strip(), sUpper, sLower)
 
     now = str(datetime.now() - date1)
     print(now, total+1, flush+1, words, pswd, pk, sk)
@@ -210,20 +210,12 @@ def main(argv):
   seeds = []
 
   if (wordsListNbr == 1):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','ring','hold','timber','banana']
-
-  if (wordsListNbr == 2):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','ring','profit','timber','banana']
-
-  if (wordsListNbr == 3):
-    seeds = ['blast','hollow','state','monkey', 'select', 'elder','present',
-            'argue','horse','hold','profit','timber','banana']
-
+    seeds = ['hollow','blast','state','monkey', 'select', 'elder','present',
+            'horse','argue','ring','profit','timber','banana']
+  # blast hollow  state monkey select elder present horse argue ring profit timber
   # passphrase is one of the word in array
   # process(dicNbr, random.sample(seeds,13), wallet, sUpper, sLower)
-  process(dicNbr, seeds, wallet, True, True)
+  process(dicNbr, random.sample(seeds,13), wallet, True, True)
 
 if __name__ == "__main__":
   main(sys.argv[1:])
